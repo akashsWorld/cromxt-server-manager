@@ -1,0 +1,19 @@
+CROMXT_SYSTEM_MANAGER_CONFIG_KAFKA_BOOTSTRAP_SERVERS: "localhost:9092"
+CROMXT_SYSTEM_MANAGER_CONFIG_BUCKET_UPDATE_TOPIC: "buckets-update"
+CROMXT_SYSTEM_MANAGER_CONFIG_SERVER_CLIENT_ADDRESS: "localhost:8000"
+
+spring:
+  webflux:
+    base-path: "/system-manager"
+  application:
+    name: bucket-server
+  data:
+    mongodb:
+      uri: mongodb://root:password@localhost:27018/buckets?authSource=admin
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    bootstrap-servers: ${CROMXT_SYSTEM_MANAGER_CONFIG_KAFKA_BOOTSTRAP_SERVERS}
+server:
+  port: 8902

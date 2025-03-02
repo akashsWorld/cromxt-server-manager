@@ -1,0 +1,26 @@
+services:
+  system-manager-db:
+    image: mongo
+    container_name: system-manager-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27018:27017"
+    networks:
+      - system-manager-network
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://root:password@system-manager-db:27017/
+      ME_CONFIG_BASICAUTH: false
+    networks:
+      - system-manager-network
+
+networks:
+  system-manager-network:
+    driver: bridge
